@@ -18,4 +18,5 @@ java  -Dspring.cloud.config.uri=http://localhost:8091 \
 some actuator endpoints:
 
 http://localhost:8091/actuator/health
+
 http://localhost:8091/actuator/env
