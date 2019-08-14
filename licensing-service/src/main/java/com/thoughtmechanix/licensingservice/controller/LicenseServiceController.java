@@ -2,6 +2,7 @@ package com.thoughtmechanix.licensingservice.controller;
 
 import com.thoughtmechanix.licensingservice.models.License;
 import com.thoughtmechanix.licensingservice.repository.LicenseRepository;
+import com.thoughtmechanix.licensingservice.services.LicenseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,12 +19,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class LicenseServiceController {
 
     @Autowired
-    private LicenseRepository licenseRepository;
+    private LicenseService service;
 
     @RequestMapping(value ="{licenseId}" , method = RequestMethod.GET)
     public License getLicences(@PathVariable("organizationId") String organizationId,
                                       @PathVariable("licenseId") String licenseId) {
-        License license = licenseRepository.findByOrganizationIdAndLicenseId(organizationId, licenseId);
+        License license = service.getLicense(organizationId, licenseId);
         return license;
     }
 }
