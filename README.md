@@ -27,3 +27,9 @@ http://localhost:8091/actuator/env
 refresh endpoint:
 
 POST http://localhost:8091/actuator/refresh
+
+--------
+
+eureka naming server
+
+http://localhost:8761/eureka/apps/licensing-service
