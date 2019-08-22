@@ -21,10 +21,20 @@ public class LicenseServiceController {
     @Autowired
     private LicenseService service;
 
-    @RequestMapping(value ="{licenseId}" , method = RequestMethod.GET)
+    @RequestMapping(value ="/{licenseId}" , method = RequestMethod.GET)
     public License getLicences(@PathVariable("organizationId") String organizationId,
                                       @PathVariable("licenseId") String licenseId) {
         License license = service.getLicense(organizationId, licenseId);
         return license;
     }
+
+    @RequestMapping(value = "/{licenseId}/{clientType}", method = RequestMethod.GET)
+    public License getLicensesWithClient(@PathVariable("organizationId") String organizationId, @PathVariable("licenseId") String licenseId, @PathVariable("clientType") String clientType) {
+
+        License license = service.getLicense(organizationId, licenseId, clientType);
+
+        return license;
+
+    }
+
 }
