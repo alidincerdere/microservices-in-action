@@ -12,12 +12,16 @@ import org.springframework.web.client.RestTemplate;
 @RefreshScope
 @SpringBootApplication
 @EnableFeignClients
-@EnableDiscoveryClient
+@EnableDiscoveryClient //The @EnableDiscoveryClient annotation is the trigger for Spring Cloud
+// to enable the application to use the DiscoveryClient and Ribbon libraries
 public class LicensingServiceApplication {
 
 	@LoadBalanced
 	@Bean
 	public RestTemplate getRestTemplate(){
+		// that will create the Ribbon-backed Spring RestTemplate bean. @LoadBalanced makes it.
+		// for this one the @EnableFeignClients and @EnableDiscoveryClient
+		// annotations are not required.
 		return new RestTemplate();
 	}
 

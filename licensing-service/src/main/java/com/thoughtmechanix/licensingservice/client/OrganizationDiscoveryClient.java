@@ -18,17 +18,20 @@ import java.util.List;
 public class OrganizationDiscoveryClient {
 
     @Autowired
-    private DiscoveryClient discoveryClient;
+    private DiscoveryClient discoveryClient; //This is the class you’ll use to interact with Ribbon
 
     public Organization getOrganization(String organizationId) {
 
         RestTemplate restTemplate = new RestTemplate();
 
         List<ServiceInstance> instances = discoveryClient.getInstances("organization-service");
-        if (instances.size()==0) return null;
-        String serviceUri = String.format("%s/v1/organizations/%s",instances.get(0).getUri().toString(), organizationId);
+        //You aren’t taking advantage of Ribbon’s client side load-balancing.
+        //By calling the DiscoveryClient directly, you get back a list of services, but it becomes your responsibility
+        // to choose which service instances returned you’re going to invoke.
+        if (instances.size() == 0) return null;
+        String serviceUri = String.format("%s/v1/organizations/%s", instances.get(0).getUri().toString(), organizationId);
 
-        ResponseEntity< Organization > restExchange =
+        ResponseEntity<Organization> restExchange =
                 restTemplate.exchange(
                         serviceUri,
                         HttpMethod.GET,
